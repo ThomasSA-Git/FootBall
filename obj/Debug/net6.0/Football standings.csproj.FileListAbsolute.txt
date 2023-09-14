@@ -1,0 +1,17 @@
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.csproj.AssemblyReference.cache
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.AssemblyInfoInputs.cache
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.AssemblyInfo.cs
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.csproj.CoreCompileInputs.cache
+C:\Users\thoma\source\repos\Football standings\bin\Debug\net6.0\Football standings.exe
+C:\Users\thoma\source\repos\Football standings\bin\Debug\net6.0\Football standings.deps.json
+C:\Users\thoma\source\repos\Football standings\bin\Debug\net6.0\Football standings.runtimeconfig.json
+C:\Users\thoma\source\repos\Football standings\bin\Debug\net6.0\Football standings.dll
+C:\Users\thoma\source\repos\Football standings\bin\Debug\net6.0\Football standings.pdb
+C:\Users\thoma\source\repos\Football standings\bin\Debug\net6.0\CsvHelper.dll
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.csproj.CopyComplete
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.dll
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\refint\Football standings.dll
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.pdb
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\Football standings.genruntimeconfig.cache
+C:\Users\thoma\source\repos\Football standings\obj\Debug\net6.0\ref\Football standings.dll

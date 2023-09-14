@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "WKCtX6TI5W6P5ZzXRPNrT3749v3hkUaQUt45U+1fvax29quRVC5BOBgM08rqu+S87wm3qHrPaO/nnvPRgzFAOw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\thoma\\source\\repos\\Football standings\\Football standings.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\thoma\\.nuget\\packages\\csvhelper\\30.0.1\\csvhelper.30.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
