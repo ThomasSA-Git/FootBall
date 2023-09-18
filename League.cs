@@ -7,6 +7,8 @@ public class League
     public int PromoteToConferenceLeague { get; set; }
     public int PromoteToUpperLeague { get; set; }
     public int RelegateToLowerLeague { get; set; }
+    public int Rounds { get; set; }
+
     public List<Team> Teams { get; set; } = new List<Team>();
 
     public League(
@@ -15,7 +17,8 @@ public class League
         int promoteToEuropaLeague,
         int promoteToConferenceLeague,
         int promoteToUpperLeague,
-        int relegateToLowerLeague)
+        int relegateToLowerLeague,
+        int rounds)
     {
         LeagueName = leagueName;
         PromoteToChampionsLeague = promoteToChampionsLeague;
@@ -23,5 +26,6 @@ public class League
         PromoteToConferenceLeague = promoteToConferenceLeague;
         PromoteToUpperLeague = promoteToUpperLeague;
         RelegateToLowerLeague = relegateToLowerLeague;
+        Rounds = rounds;
     }
 }

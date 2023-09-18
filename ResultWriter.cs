@@ -43,7 +43,7 @@ public static class ResultWriter
             string goalsAgainst = team.GoalsAgainst.ToString();
             string goalDifference = team.GoalDifference.ToString();
             string points = team.Points.ToString();
-            string winningStreak = "W|D|L"; // Replace with actual streak logic
+            string winningStreak = team.Streak;
 
             string positionColor = i < 2 ? "\u001b[32m" : (i >= teams.Count - 2 ? "\u001b[31m" : "\u001b[0m");
 
@@ -56,7 +56,7 @@ public static class ResultWriter
 
         if (userInput.ToLower() == "exit")
         {
-            // Exit app or do something else, don't know yet
+            Environment.Exit(0);
         }
     }
 }

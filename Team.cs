@@ -15,6 +15,14 @@ public class Team
     public int Points { get; set; }
     public bool Top6 { get; set; }
 
+    public int WinStreak { get; set; }
+
+    public int LossStreak { get; set; }
+
+    public int DrawStreak { get; set; }
+
+    public string Streak { get; set; } = "-";
+
     public Team(string abbreviatedName, string fullName, string specialRanking)
     {
         AbbreviatedName = abbreviatedName;

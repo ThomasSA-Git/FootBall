@@ -9,10 +9,24 @@ public static class DataHandler
     public static int round = 1;
     public static void LeagueStart(string leagueName)
     {
+        try { 
+            currentLeague = CsvReader.LoadLeagueFromCSV(leagueName);
+        }
+        catch (FileNotFoundException e)
+        {
+            Console.WriteLine("CSV file for league not found: " + e.Message);
+        }
 
-        currentLeague = CsvReader.LoadLeagueFromCSV(leagueName);
+        try
+        {
+            currentLeague.Teams = CsvReader.LoadTeamsFromCSV();
+        }
+        catch (FileNotFoundException e)
+        {
 
-        currentLeague.Teams = CsvReader.LoadTeamsFromCSV();
+            Console.WriteLine("CSV file for team not found: " + e.Message);
+        }
+        
 
         HandleScores(currentLeague.Teams);
 
@@ -25,10 +39,12 @@ public static class DataHandler
     public static void HandleScores(List<Team> teams)
     {
 
-        for (int i = 1; i < 33; i++)
+        for (int i = 1; i < currentLeague.Rounds; i++)
         {
-            List<Result> results = CsvReader.LoadRoundFromCSV("round" + i.ToString() + ".csv");
-
+            try
+            {
+                List<Result> results = CsvReader.LoadRoundFromCSV("round" + i.ToString() + ".csv");
+      
 
 
             for (int j = 0; j < results.Count; j++)
@@ -44,6 +60,13 @@ public static class DataHandler
 
                     currentLeague.Teams[indexHome].Points += 3;
 
+                    currentLeague.Teams[indexHome].WinStreak++;
+                    currentLeague.Teams[indexHome].LossStreak = 0;
+                    currentLeague.Teams[indexHome].DrawStreak = 0;
+
+                    currentLeague.Teams[indexAway].LossStreak++;
+                    currentLeague.Teams[indexAway].WinStreak = 0;
+                    currentLeague.Teams[indexAway].DrawStreak = 0;
                 }
                 else if (results[j].HomeScore < results[j].AwayScore)
                 {
@@ -51,6 +74,14 @@ public static class DataHandler
                     currentLeague.Teams[indexHome].Losses++;
 
                     currentLeague.Teams[indexAway].Points += 3;
+
+                    currentLeague.Teams[indexAway].WinStreak++;
+                    currentLeague.Teams[indexAway].LossStreak = 0;
+                    currentLeague.Teams[indexAway].DrawStreak = 0;
+
+                    currentLeague.Teams[indexHome].LossStreak++;
+                    currentLeague.Teams[indexHome].WinStreak = 0;
+                    currentLeague.Teams[indexHome].DrawStreak = 0;
 
                 }
                 else
@@ -60,6 +91,14 @@ public static class DataHandler
 
                     currentLeague.Teams[indexHome].Points += 1;
                     currentLeague.Teams[indexAway].Points += 1;
+
+                    currentLeague.Teams[indexAway].DrawStreak++;
+                    currentLeague.Teams[indexAway].WinStreak = 0;
+                    currentLeague.Teams[indexAway].LossStreak = 0;
+
+                    currentLeague.Teams[indexHome].DrawStreak++;
+                    currentLeague.Teams[indexHome].WinStreak = 0;
+                    currentLeague.Teams[indexHome].LossStreak = 0;
 
                 }
                 // sets games played
@@ -79,7 +118,11 @@ public static class DataHandler
                 currentLeague.Teams[indexAway].GoalDifference = currentLeague.Teams[indexAway].GoalsFor - currentLeague.Teams[indexAway].GoalsAgainst;
 
                 }
-
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine("CSV file for round " + round + "not found: " + e.Message);
+            }
             TeamsToPrint();
             round++;
 
@@ -115,7 +158,30 @@ public static class DataHandler
                 currentLeague.Teams[i].Top6 = true;
             }
             }
+            StreakSet();
             ResultWriter.PrintRoundTable(currentLeague.Teams, currentLeague.LeagueName, round, false, false);
+        }
+    }
+
+    public static void StreakSet()
+    {
+        foreach (Team team in currentLeague.Teams)
+        {
+            if (team.WinStreak > 1) {
+                team.Streak = team.WinStreak + "W";
+            }
+            if (team.LossStreak > 1)
+            {
+                team.Streak = team.LossStreak + "L";
+            }
+            if (team.DrawStreak > 1)
+            {
+                team.Streak = team.DrawStreak + "D";
+            }
+            else
+            {
+                team.Streak = "-";
+            }
         }
     }
 }

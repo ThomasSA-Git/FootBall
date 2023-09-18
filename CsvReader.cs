@@ -7,8 +7,6 @@ using System.Linq;
 
 public static class CsvReader
 {
-    public static int round = 1;
-    public static int fail = 1;
     public static League LoadLeagueFromCSV(string fileName)
     {
 
@@ -33,7 +31,7 @@ public static class CsvReader
 
                 string[] data = dataLine.Split(',');
 
-                if (data.Length == 6)
+                if (data.Length == 7)
                 {
                     string leagueName = data[0].Trim();
                     int positionsToChampionsLeague = int.Parse(data[1].Trim());
@@ -41,9 +39,10 @@ public static class CsvReader
                     int positionsToConferenceLeague = int.Parse(data[3].Trim());
                     int positionsToUpperLeague = int.Parse(data[4].Trim());
                     int positionsToLowerLeague = int.Parse(data[5].Trim());
+                    int rounds = int.Parse(data[6].Trim());
 
                     League league = new League(
-                        leagueName, positionsToChampionsLeague, positionsToEuropeLeague, positionsToConferenceLeague, positionsToUpperLeague, positionsToLowerLeague
+                        leagueName, positionsToChampionsLeague, positionsToEuropeLeague, positionsToConferenceLeague, positionsToUpperLeague, positionsToLowerLeague, rounds
                     );
 
                     return league;
@@ -83,10 +82,9 @@ public static class CsvReader
 
             using (var reader = new StreamReader(csv))
             {
-                // Read and discard the header line
                 reader.ReadLine();
 
-                // Read data lines and populate the list of teams
+                // Read data lines and make the list of teams
                 while (!reader.EndOfStream)
                 {
                     string dataLine = reader.ReadLine()!.Trim();
@@ -166,8 +164,7 @@ public static class CsvReader
                 }
             }
             
-            round++;
-            return score; // Return the list of score
+            return score; // Return the list of scores
         }
         catch (Exception e)
         {
