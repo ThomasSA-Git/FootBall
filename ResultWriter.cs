@@ -59,4 +59,25 @@ public static class ResultWriter
             Environment.Exit(0);
         }
     }
+
+    public static void PrintLeagueInfo(League league)
+    {
+        Console.WriteLine("League Name: " + league.LeagueName);
+        Console.WriteLine("Promote to Champions League: " + league.PromoteToChampionsLeague);
+        Console.WriteLine("Promote to Europa League: " + league.PromoteToEuropaLeague);
+        Console.WriteLine("Promote to Conference League: " + league.PromoteToConferenceLeague);
+        Console.WriteLine("Promote to Upper League: " + league.PromoteToUpperLeague);
+        Console.WriteLine("Relegate to Lower League: " + league.RelegateToLowerLeague);
+        Console.WriteLine("Number of Rounds: " + league.Rounds);
+
+
+        Console.WriteLine("Do you wish to continue? Press enter to continue, or type 'exit' to quit.");
+
+        string userInput = Console.ReadLine();
+
+        if (userInput.ToLower() == "exit")
+        {
+            Environment.Exit(0);
+        }
+    }
 }

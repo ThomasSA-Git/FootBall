@@ -8,9 +8,11 @@ public static class DataHandler
     public static League? currentLeague;
     public static int round = 1;
     public static void LeagueStart(string leagueName)
-    {
+    {   
         try { 
             currentLeague = CsvReader.LoadLeagueFromCSV(leagueName);
+            ResultWriter.PrintLeagueInfo(currentLeague);
+            
         }
         catch (FileNotFoundException e)
         {

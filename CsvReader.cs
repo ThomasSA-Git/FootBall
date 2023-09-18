@@ -9,8 +9,11 @@ public static class CsvReader
 {
     public static League LoadLeagueFromCSV(string fileName)
     {
-
+        // Get the current working directory
         string workingDirectory = Environment.CurrentDirectory;
+
+        // Navigate up three levels in the directory structure to find the parent directory's full path
+        // This line moves up to the grandparent directory of the working directory
         string currentDirectory = Directory.GetParent(workingDirectory)!.Parent!.Parent!.FullName;
         string csv = Path.Combine(currentDirectory, "csv-files", fileName);
 
