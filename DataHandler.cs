@@ -54,8 +54,16 @@ public static class DataHandler
                 int indexHome = currentLeague.Teams.FindIndex(team => team.AbbreviatedName == results[j].HomeTeam);
                 int indexAway = currentLeague.Teams.FindIndex(team => team.AbbreviatedName == results[j].AwayTeam);
 
-                // Compares goals and sets wins, loss and draw for specific team. Also sets score
-                if (results[j].HomeScore > results[j].AwayScore)
+                    if (indexHome == -1 || indexAway == -1)
+                    {
+                        Console.WriteLine("No matching team found. There must be an error or a typo in your CSV-file for either teams or rounds.");
+                        Console.WriteLine("Error occured at round: " + i);
+
+                        Environment.Exit(0);
+                    }
+
+                    // Compares goals and sets wins, loss and draw for specific team. Also sets score
+                    if (results[j].HomeScore > results[j].AwayScore)
                 {
                     currentLeague.Teams[indexHome].Wins++;
                     currentLeague.Teams[indexAway].Losses++;

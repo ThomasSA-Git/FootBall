@@ -14,7 +14,9 @@ public static class CsvReader
 
         // Navigate up three levels in the directory structure to find the parent directory's full path
         // This line moves up to the grandparent directory of the working directory
-        string currentDirectory = Directory.GetParent(workingDirectory)!.Parent!.Parent!.FullName;
+        // Would search for csv-files in source\repos\Football standings\bin\Debug\net6.0\csv-files\Superliga.csvFile instead
+        // currentDirectory finds csv-files folder in source\repos\Football standings\csv-files.
+        string currentDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
         string csv = Path.Combine(currentDirectory, "csv-files", fileName);
 
         try
@@ -22,7 +24,7 @@ public static class CsvReader
 
             if (!File.Exists(csv))
             {
-                throw new FileNotFoundException("No CSV file found");
+                throw new FileNotFoundException("No CSV file for league found");
             }
 
             using (var reader = new StreamReader(csv))
@@ -80,7 +82,7 @@ public static class CsvReader
         {
             if (!File.Exists(csv))
             {
-                throw new FileNotFoundException("No CSV file found");
+                throw new FileNotFoundException("No CSV file for teams found");
             }
 
             using (var reader = new StreamReader(csv))
@@ -134,7 +136,7 @@ public static class CsvReader
         {
             if (!File.Exists(csv))
             {
-                throw new FileNotFoundException("No CSV file found");
+                throw new FileNotFoundException("No CSV file for rounds found");
             }
            
             using (var reader = new StreamReader(csv))
