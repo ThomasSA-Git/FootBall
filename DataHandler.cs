@@ -14,18 +14,29 @@ public static class DataHandler
 
         currentLeague.Teams = CsvReader.LoadTeamsFromCSV();
 
-        for (int i = 1; i < 23; i++)
+        HandleScores(currentLeague.Teams);
+
+        // handlescores top rounds
+        // handlescores bottom rounds
+        // new method to handle lists seperatly?
+
+    }
+
+    public static void HandleScores(List<Team> teams)
+    {
+
+        for (int i = 1; i < 33; i++)
         {
             List<Result> results = CsvReader.LoadRoundFromCSV("round" + i.ToString() + ".csv");
 
-       
+
 
             for (int j = 0; j < results.Count; j++)
             {
                 int indexHome = currentLeague.Teams.FindIndex(team => team.AbbreviatedName == results[j].HomeTeam);
                 int indexAway = currentLeague.Teams.FindIndex(team => team.AbbreviatedName == results[j].AwayTeam);
 
-                // Compares scores and sets wins, loss and draw for specific team. Also sets score
+                // Compares goals and sets wins, loss and draw for specific team. Also sets score
                 if (results[j].HomeScore > results[j].AwayScore)
                 {
                     currentLeague.Teams[indexHome].Wins++;
@@ -67,13 +78,44 @@ public static class DataHandler
                 currentLeague.Teams[indexHome].GoalDifference = currentLeague.Teams[indexHome].GoalsFor - currentLeague.Teams[indexHome].GoalsAgainst;
                 currentLeague.Teams[indexAway].GoalDifference = currentLeague.Teams[indexAway].GoalsFor - currentLeague.Teams[indexAway].GoalsAgainst;
 
-                Console.WriteLine(currentLeague.Teams[0].AbbreviatedName + " " + currentLeague.Teams[0].Wins + " " + currentLeague.Teams[0].GoalsAgainst);
+                }
+
+            TeamsToPrint();
+            round++;
+
+        }
+        //return teams;
+    }
+
+    public static void TeamsToPrint()
+    {
+       
+        List<Team> topTeams = new List<Team>();
+        List<Team> bottomTeams = new List<Team>();
+
+
+        // handle above round 22
+        if (round > 22)
+        {
+
+            topTeams = currentLeague.Teams.Where(team => team.Top6).ToList();
+            bottomTeams = currentLeague.Teams.Where(team => !team.Top6).ToList();
+
+            ResultWriter.PrintRoundTable(topTeams, currentLeague.LeagueName, round, true, true);
+            ResultWriter.PrintRoundTable(bottomTeams, currentLeague.LeagueName, round, true, false);
+        }
+        else // handle round 22 and below
+        {
+            List<Team> sortedTeams = currentLeague.Teams.OrderByDescending(team => team.Points).ToList();
+
+            if(round == 22) { 
+            for (int i = 0; i < 6; i++)
+            {
+                
+                currentLeague.Teams[i].Top6 = true;
             }
-                ResultWriter.PrintRoundTable(currentLeague.Teams, currentLeague.LeagueName, round);
-                round++;
-            
+            }
+            ResultWriter.PrintRoundTable(currentLeague.Teams, currentLeague.LeagueName, round, false, false);
         }
     }
 }
-
-

@@ -166,14 +166,6 @@ public static class CsvReader
                 }
             }
             
-
-            foreach (var matchScore in score)
-            {   
-                    Console.WriteLine("Round: " + round);
-                Console.WriteLine($"HomeTeam: {matchScore.HomeTeam}, AwayTeam: {matchScore.AwayTeam}, HomeScore: {matchScore.HomeScore}, AwayScore: {matchScore.AwayScore}");
-              
-            
-            }
             round++;
             return score; // Return the list of score
         }

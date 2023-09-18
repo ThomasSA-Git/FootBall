@@ -2,24 +2,36 @@
 
 public static class ResultWriter
 {
-    public static void PrintRoundTable(List<Team> teams, string leagueName, int round)
+    public static string topString = "\u001b[34mTOP 6\u001b[0m";
+    public static string bottomString = "\u001b[34mBOTTOM 6\u001b[0m";
+
+    public static void PrintRoundTable(List<Team> teams, string leagueName, int round, bool finalRounds, bool top6)
     {
-        Console.WriteLine(teams[11].GamesPlayed);
-        List<Team> sortedTeams = teams.OrderByDescending(team => team.Points).ToList();
+       
 
         Console.WriteLine($"\nLeague Name: \u001b[32m{leagueName}\u001b[0m\n"); // Green color for leagueName
-        Console.WriteLine("Round: " + round);
+        Console.WriteLine("ROUND: " + round);
+
+        if (finalRounds)
+        {   
+            if (top6) { 
+            Console.WriteLine(topString);
+            }
+            else { 
+            Console.WriteLine(bottomString);
+            }
+        }
 
         int teamNameWidth = 10;
         string teamNameHeader = "Team".PadRight(teamNameWidth);
 
         Console.WriteLine($"Pos\tSM\t{teamNameHeader}\tM\tW\tD\tL\tGF\tGA\tGD\tPoints\tStreak");
 
-        int previousPosition = -1; // Initialize to an invalid position
-        for (int i = 0; i < sortedTeams.Count; i++)
+        int previousPosition = -1;
+        for (int i = 0; i < teams.Count; i++)
         {
-            Team team = sortedTeams[i];
-            string position = (i == 0 || team.Points != sortedTeams[i - 1].Points) ? (i + 1).ToString() : "-"; // Check if it's the first or has different points
+            Team team = teams[i];
+            string position = (i == 0 || team.Points != teams[i - 1].Points) ? (i + 1).ToString() : "-"; // Check if it's the first or has different points
 
             string specialMarking = team.SpecialRanking;
             string teamName = team.FullName;
@@ -38,7 +50,7 @@ public static class ResultWriter
             Console.WriteLine($"{positionColor}{position.PadLeft(3)}\t{specialMarking.PadRight(2)}\t{teamName.PadRight(10)}\t{gamesPlayed}\t{wins}\t{draws}\t{losses}\t{goalsFor}\t{goalsAgainst}\t{goalDifference}\t{points}\t{winningStreak}\u001b[0m");
         }
 
-        Console.WriteLine("Do you wish to continue to the next round? Enter c to continue, or type 'exit' to quit.");
+        Console.WriteLine("Do you wish to continue? Press enter to continue, or type 'exit' to quit.");
 
         string userInput = Console.ReadLine();
 
