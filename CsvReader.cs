@@ -7,7 +7,8 @@ using System.Linq;
 
 public static class CsvReader
 {
-
+    public static int round = 1;
+    public static int fail = 1;
     public static League LoadLeagueFromCSV(string fileName)
     {
 
@@ -119,6 +120,7 @@ public static class CsvReader
 
     public static List<Result> LoadRoundFromCSV(string fileName)
     {
+   
         // Construct the full path to the CSV file
         string workingDirectory = Environment.CurrentDirectory;
         string currentDirectory = Directory.GetParent(workingDirectory)!.Parent!.Parent!.FullName;
@@ -163,7 +165,16 @@ public static class CsvReader
                     }
                 }
             }
+            
 
+            foreach (var matchScore in score)
+            {   
+                    Console.WriteLine("Round: " + round);
+                Console.WriteLine($"HomeTeam: {matchScore.HomeTeam}, AwayTeam: {matchScore.AwayTeam}, HomeScore: {matchScore.HomeScore}, AwayScore: {matchScore.AwayScore}");
+              
+            
+            }
+            round++;
             return score; // Return the list of score
         }
         catch (Exception e)

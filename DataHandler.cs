@@ -5,17 +5,20 @@ using static System.Formats.Asn1.AsnWriter;
 
 public static class DataHandler
 {
-
+    public static League? currentLeague;
+    public static int round = 1;
     public static void LeagueStart(string leagueName)
     {
 
-        League currentLeague = CsvReader.LoadLeagueFromCSV(leagueName);
+        currentLeague = CsvReader.LoadLeagueFromCSV(leagueName);
 
         currentLeague.Teams = CsvReader.LoadTeamsFromCSV();
 
         for (int i = 1; i < 23; i++)
         {
             List<Result> results = CsvReader.LoadRoundFromCSV("round" + i.ToString() + ".csv");
+
+       
 
             for (int j = 0; j < results.Count; j++)
             {
@@ -64,9 +67,11 @@ public static class DataHandler
                 currentLeague.Teams[indexHome].GoalDifference = currentLeague.Teams[indexHome].GoalsFor - currentLeague.Teams[indexHome].GoalsAgainst;
                 currentLeague.Teams[indexAway].GoalDifference = currentLeague.Teams[indexAway].GoalsFor - currentLeague.Teams[indexAway].GoalsAgainst;
 
-                ResultWriter.PrintRoundTable(currentLeague.Teams, currentLeague.LeagueName);
                 Console.WriteLine(currentLeague.Teams[0].AbbreviatedName + " " + currentLeague.Teams[0].Wins + " " + currentLeague.Teams[0].GoalsAgainst);
             }
+                ResultWriter.PrintRoundTable(currentLeague.Teams, currentLeague.LeagueName, round);
+                round++;
+            
         }
     }
 }
