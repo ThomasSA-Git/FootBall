@@ -154,8 +154,11 @@ public static class DataHandler
             topTeams = currentLeague.Teams.Where(team => team.Top6).ToList();
             bottomTeams = currentLeague.Teams.Where(team => !team.Top6).ToList();
 
-            ResultWriter.PrintRoundTable(topTeams, currentLeague.LeagueName, round, true, true);
-            ResultWriter.PrintRoundTable(bottomTeams, currentLeague.LeagueName, round, true, false);
+            List<Team> sortedTops = topTeams.OrderByDescending(team => team.Points).ToList();
+            List<Team> sortedBottoms = bottomTeams.OrderByDescending(team => team.Points).ToList();
+
+            ResultWriter.PrintRoundTable(sortedTops, currentLeague.LeagueName, round, true, true);
+            ResultWriter.PrintRoundTable(sortedBottoms, currentLeague.LeagueName, round, true, false);
         }
         else // handle round 22 and below
         {
