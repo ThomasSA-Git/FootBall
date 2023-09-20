@@ -137,7 +137,6 @@ public static class DataHandler
             round++;
 
         }
-        //return teams;
     }
 
     public static void TeamsToPrint()

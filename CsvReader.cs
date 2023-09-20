@@ -12,10 +12,7 @@ public static class CsvReader
         // Get the current working directory
         string workingDirectory = Environment.CurrentDirectory;
 
-        // Navigate up three levels in the directory structure to find the parent directory's full path
-        // This line moves up to the grandparent directory of the working directory
-        // Would search for csv-files in source\repos\Football standings\bin\Debug\net6.0\csv-files\Superliga.csvFile instead
-        // currentDirectory finds csv-files folder in source\repos\Football standings\csv-files.
+        // Move up three levels in the dir structure to find the parent dir full path
         string currentDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
         string csv = Path.Combine(currentDirectory, "csv-files", fileName);
 
